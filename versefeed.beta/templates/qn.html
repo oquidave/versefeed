@@ -1,0 +1,97 @@
+          <!-- the cool modal dialog box -->
+          <div id="quiz_modal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Choice an option</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Please first select an option before continuing&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+          <!--Qn header --> 
+
+          {% include "qn_header.html" %}
+
+          <!--Quiz question and objectives  --> 
+              <form id="quiz_form" method="post" > 
+                {% csrf_token %}
+                 
+                    <div>{{qn.qn}} </div>
+
+                    {% for choice in choices_list %}
+                      <div class="radio choices_radios">
+                        <label>
+                         <input type="radio" choice_id="{{choice.id}}" choice="{{choice.choice}}" >{{choice.choice}}
+                        </label>  
+                      </div>
+                    {% endfor %}
+
+               </form>
+               
+          <!--Quiz Navigation buttons --> 
+              <div id="quiz_nav">
+                {% if qn_page.has_next %}
+                  <button class="btn btn-primary btn-large" onclick="submit_quiz_form('{{ qn_page.next_page_number }}');">Next Question</button>
+                  <button class="btn btn-small" onclick="submit_quiz_form();">Pause</button>
+                {% else %}
+                 <button type="submit" class="btn btn-primary btn-large" onclick="quiz_score();">See Score</button>
+                {% endif %} 
+              </div>
+          </div>
+
+          <!-- some js to control html elements here -->
+          <script type="text/javascript">
+
+            $(function(){
+
+            });
+
+            //quiz_form
+            function submit_quiz_form(page){
+              var check_radio = $('#quiz_form input:radio:checked');
+              var user_choice_id = check_radio.attr("choice_id")
+              var user_choice = check_radio.attr("choice")
+              var len = check_radio.length;
+              if (!len) {
+                //alert("None checked");
+                $('#quiz_modal').modal("show");
+                return;
+              }
+              //$("#quiz_form").submit();
+              $.get("/qn/", {
+                    'page' : page,
+                     'user_choice_id':user_choice_id,
+                     'user_choice':user_choice
+                  }, function(data) {
+                    $("#quiz").html(data);
+                  }, "html");
+            }
+
+            function quiz_score(){
+              var check_radio = $('#quiz_form input:radio:checked');
+              var user_choice_id = check_radio.attr("choice_id")
+              var user_choice = check_radio.attr("choice")
+              var len = check_radio.length;
+              if (!len) {
+                //alert("None checked");
+                $('#quiz_modal').modal("show");
+                return;
+              }
+              //$("#quiz_form").submit();
+              $.get("/quiz_score/", {
+                     'user_choice_id':user_choice_id,
+                     'user_choice':user_choice
+                  }, function(data) {
+                    $("#quiz").html(data);
+                  }, "html");
+            }
+
+          </script>

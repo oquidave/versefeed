@@ -1,0 +1,46 @@
+<!-- the header -->
+{% include "header.html" %}
+<!-- the body -->
+      <!-- sidebar -->
+        <div class="col-sm-3 sidebar">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="nav-header">Themes</li>
+            {% for theme in themes %}
+            <li><a href="#" onclick="theme_details('{{theme.id}}');">{{theme.theme}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- the content -->
+        <div class="col-sm-8 main">
+          <!--selected theme description --> 
+          <div id="theme_details">
+
+            <div class="page-header">
+              <h1>Hello!! <small>Welcome to VerseByte Bible Quiz</small></h1>
+            </div>
+            <h2>Click on one of the Themes on the sidebar to get started</h2>
+
+          </div>
+
+          </div>
+
+        </div>
+<!-- the footer -->
+{% include "footer.html" %}
+
+<script type="text/javascript">
+
+$(function(){
+
+});
+
+function theme_details(theme_id){
+  //do an ajax call to the server and get this theme
+  $.get("/get_theme/", {
+          'theme_id' : theme_id
+        }, function(data) {
+          $('#theme_details').html(data);
+        }, "html");
+}
+
+</script>
