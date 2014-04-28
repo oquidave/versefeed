@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+{% load staticfiles %}
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<meta charset="utf-8" />
+<title>My Site</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+<link href=" {% static 'bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet" type="text/css" />
+
+<script src="{% static 'bootstrap/js/jquery-2.1.0.js' %}" type="text/javascript"></script>
+<script src="{% static 'bootstrap/js/bootstrap.js' %}" type="text/javascript"></script>
+<script src="{% static 'bootstrap/js/holder.js' %}" type="text/javascript"></script>
+
+</head>
+  <body>
+    <style type="text/css">
+    body {
+    padding-top: 70px;
+  }
+  </style>
+
+    <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <a href="#" class="brand">Versefeed</a>
+            <ul class="nav">
+              <li><a href="#">Questions</a></li>
+              <li><a href="#">Users</a></li>
+              <li><a href="#">Settings</a></li>
+            </ul>
+          </div>
+        </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <div class="span3">
+          <ul class="nav nav-tabs nav-stacked">
+            <li><a href="#">Questions</a></li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </div>
+        <div class="span8">
+          <table class= "table table-striped">
+            <thead>
+              <th>Qn id</th><th>Qn</th><th>Qn ref</th>
+            </thead>
+            <tbody>
+           	{% for qn in qns_list %}
+
+                <tr>
+                  <td>{{qn.id}}</td>
+                 <!-- <td><a href="/qn/?qn_id={{qn.id}}" onclick="show_objectives();">{{qn.qn}}</a></td> -->
+                 <td><a href="#" onclick="show_objectives(event, '{{qn.id}}');">{{qn.qn}}</a></td>
+                 <!-- <td><a href="#">{{qn.qn}}</a></td> -->
+                  <td>{{qn.ref}}</td>
+                </tr>
+                
+                <tr style='display: none;'>
+                  <td colspan = "3">
+                  </td>
+                </tr>
+
+         	{% endfor %}
+            </tbody>
+           </table>
+
+           <div class="pagination">
+              <span class="step-links">
+
+                  {% if qns_list.has_previous %}
+                    <a href="?page={{ qns_list.previous_page_number }}">previous</a>
+                  {% endif %}
+
+                  <span class="current">
+                    Page {{ qns_list.number }} of {{ qns_list.paginator.num_pages }}
+                  </span>
+
+                  {% if qns_list.has_next %}
+                    <a href="?page={{ qns_list.next_page_number }}">next</a>
+                  {% endif %}
+
+              </span>
+           </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+    $(function(){
+        //show_objectives();
+        /*$("a").click(function(){
+          alert($(this).text());
+        }); */
+    });
+
+    function show_objectives(event, qn_id){
+      //alert("qn_id is: " + qn_id);
+      target = $(event.target);
+      //alert(target.parent().parent().get(0).tagName);
+      tr = target.parent().parent().next();
+      td = tr.find("td");
+      $.get("/qn_objs/", {
+          'qn_id' : qn_id
+        }, function(data) {
+          td.html(data);
+        }, "html");
+      tr.slideToggle();
+      //target.css('display','none');
+      //alert($(event.target).text());
+    }
+
+
+    </script>
+
+  </body>
+</html>
