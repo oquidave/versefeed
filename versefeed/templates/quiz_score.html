@@ -1,19 +1,19 @@
-            
+<!-- display the users score and link to the next round if available -->
 
-            {% include "qn_header_responses.html" %}
-              <div id="quiz_score">
+{% include "qn_header_responses.html" %} <!-- mark the previous question -->
 
-                <div class="jumbotron">
-                  <h1>And your Score is...</h1>
-                  <p> <span class="badge" style="font-size:large;">Score: {{ request.session.points }}</span> </p>
-                  {% ifequal has_next_round 'true' %}
-                    <!--&page={{page}} -->
-                    <p><a href="/themed_quiz/?quiz_round={{quiz_round}}" class="btn btn-primary btn-lg" role="button">Go to Next Round</a></p>
-                  {% else %}
-                    <p><a href="/quiz/" class="btn btn-primary btn-lg" role="button">Do more Quiz</a></p>
-                  {% endifequal %}
-                </div>
+<div id="quiz_score">
 
-              </div>
+  <div class="jumbotron">
+    <h1>And your Score is...</h1>
+    <p> <span class="badge" style="font-size:large;">Score: {{ request.session.points }}</span> </p>
+    {% ifequal has_next_round 'true' %}
+      <p><a href="/themed_quiz/?quiz_round={{quiz_round}}" class="btn btn-primary btn-lg" role="button">Go to Next Round</a></p>
+    {% else %}
+      <p><a href="/quiz/" class="btn btn-primary btn-lg" role="button">Do more Quiz</a></p>
+    {% endifequal %}
+  </div>
+
+</div>
 
         

@@ -1,4 +1,4 @@
-<!--load quiz themes --> 
+<!--load quiz theme details --> 
 
  <div id="show_theme">
  	<div class="page-header">
@@ -6,9 +6,9 @@
     </div>
 	<div class="jumbotron">
         <p>{{theme.description}}</p>
-        <p>No of Questions are: {{no_qns}}</p>
-        <p>No of Rounds are: {{no_rounds}}</p>
-         <p>By {{theme.author}}</p>
-         <p><a href="/themed_quiz?theme_id={{theme.id}}&quiz_round={{quiz_round}}&no_rounds={{no_rounds}}" class="btn btn-primary btn-lg" role="button">Start Quiz</a></p>
+        <p>{{no_qns}} Questions</p>
+        <p>{{no_rounds}} Rounds</p>
+        <p>Quiz by {{theme.author}}</p>
+        <p><a href="/themed_quiz?theme_id={{theme.id}}&quiz_round={{quiz_round}}&no_rounds={{no_rounds}}" class="btn btn-primary btn-lg" role="button">Start Quiz</a></p>
     </div>
  </div>

@@ -58,7 +58,7 @@ def quiz(request,theme_id, page, quiz_round):
 
 	request.session["right_choice_id"] = str(right_choice.id)
 	request.session["right_choice"] = right_choice.choice
-	return {"qn_page":qn_page, "qn":qn, "choices_list":choices_list, "ans":ans}
+	return {"theme":theme, "qn_page":qn_page, "qn":qn, "choices_list":choices_list, "ans":ans}
 
 
 def quiz_score(request):
@@ -110,11 +110,12 @@ def themed_quiz(request):
 	''' load quiz question for this theme and round number'''
 	quiz_round = request.GET.get("quiz_round")
 	request.session["quiz_round"] = quiz_round
-	page = 1
+	page = 1 #display one question for page
 	if quiz_round == "1":
 		#starting round 1
 		theme_id = request.GET.get("theme_id")
 		no_rounds = request.GET.get("no_rounds")
+		#store these in session variable for subsequent quiz rounds
 		request.session['theme_id'] = theme_id
 		request.session['no_rounds'] = no_rounds
 	else:
@@ -139,7 +140,7 @@ def get_this_theme(theme_id):
 	return theme, no_this_theme_qns, no_rounds
 
 def get_theme(request):
-	'''get theme details that the user clicked and display them in an html div'''
+	'''get theme details that the user clicked and display them in the theme_details html div'''
 	theme_id = request.GET.get("theme_id")
 	theme, no_this_theme_qns, no_rounds = get_this_theme(theme_id)
 	return render_to_response("theme.html", {"theme":theme, "no_qns":no_this_theme_qns, "no_rounds":no_rounds, "quiz_round":1})

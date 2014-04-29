@@ -1,16 +1,16 @@
 
-          <!--ans responses --> 
+<!--mark user question responses --> 
 
-              <div class="ans_responses">
-                {% ifequal ans "not_answered" %}
-                  <p class="alert alert-warning">Not yet answered</p>
-                {% else %}
-                   {% ifequal ans "correct" %}
-                      <p class="alert alert-success"><span class="glyphicon glyphicon-thumbs-up" style="font-size: xx-large;color: forestgreen;"></span> <span>Yapii!! your answer ({{ request.session.user_choice }}) was correct</span></p>
-                   {% else %}
-                      <p class="alert alert-danger"> <span class="glyphicon glyphicon-thumbs-down" style="font-size: xx-large;color: firebrick;"></span> Ooops..Sorry your answer ({{ request.session.user_choice }}) was wrong. Right ans...<span class="bg-success">({{ request.session.previous_right_choice }})</span></p>
-                   {% endifequal %}
-                {% endifequal %}
-              </div>
+<div class="ans_responses">
+  {% ifequal ans "not_answered" %}
+    <p class="alert alert-warning">Not yet answered</p>
+  {% else %}
+     {% ifequal ans "correct" %}
+        <p class="alert alert-success"><span class="glyphicon glyphicon-thumbs-up" style="font-size: xx-large;color: forestgreen;"></span> <span>Yapii!! your answer ({{ request.session.user_choice }}) was correct</span></p>
+     {% else %}
+        <p class="alert alert-danger"> <span class="glyphicon glyphicon-thumbs-down" style="font-size: xx-large;color: firebrick;"></span> Ooops..Sorry your answer ({{ request.session.user_choice }}) was wrong. Right ans...<span class="bg-success">({{ request.session.previous_right_choice }})</span></p>
+     {% endifequal %}
+  {% endifequal %}
+</div>
 
          

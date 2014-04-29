@@ -7,17 +7,14 @@ from quiz import views, versefeed_import
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'versefeed.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^import_db/$', versefeed_import.get_qn), 
-    url(r'^quiz/$', views.quiz_home),
-    url(r'^get_theme/$', views.get_theme),
-    url(r'^themed_quiz/$', views.themed_quiz),
-     url(r'^qn/$', views.qn), 
-    url(r'^quiz_score/$', views.quiz_score),
+    url(r'^import_db/$', versefeed_import.get_qn), #import quiz from legacy db to django models
+    url(r'^quiz/$', views.quiz_home), #quiz home page, loads all the themes
+    url(r'^get_theme/$', views.get_theme), #ajax request for details of clicked quiz
+    url(r'^themed_quiz/$', views.themed_quiz), #start theme's quiz
+     url(r'^qn/$', views.qn), #ajax request of quiz qns
+    url(r'^quiz_score/$', views.quiz_score), #ajax request to load the final quiz score for particular quiz round
 
 )
 

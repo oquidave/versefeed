@@ -1,22 +1,25 @@
+<!--quiz of particular theme in progress -->
+
 <!-- the header -->
 {% include "header.html" %}
+
 <!-- the body -->
       <!-- sidebar -->
         <div class="col-sm-3 sidebar">
           <ul class="nav nav-pills nav-stacked">
-            <li class="nav-header">Quiz Options</li>
+            <li class="nav-header">Quiz Round</li>
             <li class="nav-header">Round {{quiz_round}} Out of {{no_rounds}}</li>
           </ul>
         </div>
         <!-- the content -->
         <div class="col-sm-8 main">
+
           <div id="quiz">
-          <!--Quiz go here --> 
+          <!--Quiz question goes here. We also load subsequent qns here via ajax requests --> 
           {% include "qn.html" %}
           </div>
+          
         </div>
-
-      </div>
 
 <!-- the footer -->
 {% include "footer.html" %}

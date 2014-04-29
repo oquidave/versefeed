@@ -1,8 +1,8 @@
+<!-- dynamic info about this quiz. Includes quiz theme, page/quiz number and marking responses-->
 
           <!--Qn header --> 
-          <div class="quiz">
               <div class="page-header">
-                 <h1>Parables of Jesus <small> Qn {{ qn_page.number }} of {{ qn_page.paginator.num_pages }}</small></h1>
+                 <h1>{{theme}} <small> Qn {{ qn_page.number }} of {{ qn_page.paginator.num_pages }}</small></h1>
                   <span class="badge" style="font-size:large;">Points: {{ request.session.points }}</span>
               </div>
 
