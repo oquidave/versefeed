@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'quiz',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,6 +101,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'public'),
 
     )
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -114,6 +116,46 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+'''#authentication using social media and google using social auth extension'''
+
+#First setup your base-line login urls
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/quiz/'
+LOGIN_ERROR_URL = '/login-error/'
+
+#Add social_auth to your INSTALLED_APPS
+INSTALLED_APPS += (
+    'social_auth', 
+    )
+
+#Add a new config setting which will define the authentication types you wish to support
+AUTHENTICATION_BACKENDS = (
+  'social_auth.backends.google.GoogleOAuth2Backend',
+  'social_auth.backends.contrib.github.GithubBackend',
+  'django.contrib.auth.backends.ModelBackend',
+)
+
+#Add social_auth as a template processor
+TEMPLATE_CONTEXT_PROCESSORS += (
+  "social_auth.context_processors.social_auth_by_type_backends",
+)
+
+#Some social_auth specific settings
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UID_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+#social_auth backends
+SOCIAL_AUTH_ENABLED_BACKENDS = ('google', 'github')
+
+#Add your respective social API information.
+GITHUB_API_KEY = ''
+GITHUB_API_SECRET = ''
+ 
+GOOGLE_OAUTH2_CLIENT_ID = '511202606770-qfpfq70ur49gh6ag1hn3hkgeu44jtlb9.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'U9qo7hO64pMcfrG7iexNeGtF'

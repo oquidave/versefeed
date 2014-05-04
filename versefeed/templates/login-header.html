@@ -34,18 +34,14 @@
             <a href="/quiz" class="navbar-brand"><i class="fa fa-home fa-fw"></i>VerseByte</a>
           </div>
 
-            <div id="navbarCollapse" class="collapse navbar-collapse">
+           <!-- <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a href="#">Submit Quiz</a></li>
               <li><a href="/about/">About us</a></li>
               <li><a href="/contact/">Contact us</a></li>
-              {% if user.is_authenticated %}
-                <li><a href="/logout/">Logout</a></li>
-              {% else %}
-                <li><a href="/login/">Login</a></li>
-              {% endif %}
+              <li><a href="{% url 'socialauth_begin' 'google-oauth2' %}">Login with Google</a></li>
             </ul>
-            </div>
+            </div> -->
     
     </div>
 

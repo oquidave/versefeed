@@ -2,9 +2,10 @@ from django.shortcuts import render
 
 # Create your views here.
 from quiz import models
-from django.http import HttpResponse
+from django.http import HttpResponse,  HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib import auth
 from quiz import versefeed_import
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
@@ -98,7 +99,7 @@ def qn(request):
 	quiz_details = quiz(request, theme_id, page, quiz_round)
 	html_pg = "qn.html"
 	if request.session['see_score']:
-		'''done with the qns for this round, show see_score'''
+		#done with the qns for this round, show see_score
 		html_pg = "quiz_score.html"
 		request.session['see_score'] = False
 
@@ -136,7 +137,8 @@ def get_this_theme(theme_id):
 	theme =  models.Themes.objects.get(id=theme_id)
 	this_theme_qns = models.Qns.objects.filter(qnsthemes__theme=theme)
 	no_this_theme_qns = len(this_theme_qns)
-	no_rounds = int(math.ceil(no_this_theme_qns/float(10)))
+	qns_per_round = 5 #have 5 questions per round. last Round may have less than 5 questions of course
+	no_rounds = int(math.ceil(no_this_theme_qns/float(qns_per_round))) #round up e.g 2.2 quiz rounds rounds off to 3 rounds 
 	return theme, no_this_theme_qns, no_rounds
 
 def get_theme(request):
@@ -153,7 +155,26 @@ def get_themes():
 def quiz_home(request):
 	'''this is the quiz home page. Display all the themes on a side bar'''
 	themes = get_themes()
-	return render_to_response( "quiz_home.html",
+	return render_to_response("quiz_home.html",
 		{'themes':themes},
 		context_instance=RequestContext(request)
 		)
+
+def login(request):
+	'''login '''
+	return render_to_response('login.html')
+
+def logout(request):
+	'''logout '''
+	auth.logout(request)
+	#Redirect to home page
+	return HttpResponseRedirect("/quiz/")
+
+
+def contact(request):
+	'''server the contact us form or something similar'''
+	return render_to_response('contact.html')
+
+def about(request):
+	'''about us stuff'''
+	return render_to_response('about.html')

@@ -1,0 +1,65 @@
+//=========user session management=============
+
+quiz details
+*theme_id // theme id of quiz user was doing
+*theme //theme of quiz user was doing
+*no_rounds //no of rounds of this quiz
+*quiz_round // the quiz round
+*page //the page of the quiz before pausing
+*score //dictionary of the scores with round {round:score}. 
+//we compute the final score from the scores of all the rounds
+
+
+user_details
+*user_id //user's user id
+*username //user's username
+*password //authentication password
+*email //email
+
+create these using existing social networks. 
+
+#have an option of resetting session
+#clicking on a theme prompts user to continue on a theme if they had saved it
+#share a quiz on users social networks with link 
+
+//========Submit Quiz ==============
+User can submit in a random question or a themed quiz
+
+#random question
+user submits in a question that can be one or two or more but that's not themed or categorized. 
+however, user must add at least a tag to the question. 
+
+when user submits a question, enter them into the questions db, with; 
+	*the question
+	*the objectives
+	*the question tag(s)
+when user clicks on submit, add the qn and choices in the Qns & Themes model, then in the 
+Tags & QnsTags model. 
+ >> looks like we've to add the authors details somewhere. maybe i need to create a users' qns table
+which will map users and their qns. Need the UserQns model with user_id and qn_id foreign keys. 
+that way, we can keep track of the users' questions/themes
+
+user can also add a themed quiz like the App themed quized. These are a bit more detailed and more comprehensive. These will require a minimum of 10 questions. 
+
+users' submitted questions will appear under the random category or perhaps call it community while themed questions will appear on the home page like the versebyte themed quizes
+
+//========About us =================
+VerseByte is about putting fun into studying the Bible. 
+Anyone can do the quizes as much as they can create fun objective-based 
+quizes for everyone else to learn. 
+
+You can get started here
+
+//==========contact us===============
+
+**create the contact us channels
+Twitter: @versebyte Facebook: facebook.com/versebyte
+
+
+
+
+
+
+
+
+

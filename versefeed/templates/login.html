@@ -1,0 +1,40 @@
+<!-- About us page-->
+
+<!-- the header -->
+{% include "login-header.html" %}
+<!-- the body -->
+        <div class="col-sm-3 sidebar">
+         
+        </div>
+        <!-- the content -->
+        <div class="col-sm-8 main">
+          <!--selected theme description and details --> 
+          <div id="login">
+
+            <div class="col-sm-4 social-buttons">
+              <h3>Login using</h3>
+                <a class="btn btn-block btn-social btn-facebook">
+                  <i class="fa fa-facebook"></i> Sign in with Facebook
+                </a>
+                <a class="btn btn-block btn-social btn-twitter">
+                  <i class="fa fa-twitter"></i> Sign in with Twitter
+                </a>
+               <!-- //<a href="{% url 'socialauth_begin' 'google-oauth2' %}">Login</a> -->
+                <a href="{% url 'socialauth_begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google-plus">
+                  <i class="fa fa-google-plus"></i> Sign in with Google
+                </a>
+            </div>
+          </div>
+
+        </div>
+
+<!-- the footer -->
+{% include "footer.html" %}
+
+<script type="text/javascript">
+
+$(function(){
+
+});
+
+</script>
