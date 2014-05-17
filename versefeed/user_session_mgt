@@ -6,11 +6,12 @@ quiz details
 *no_rounds //no of rounds of this quiz
 *quiz_round // the quiz round
 *page //the page of the quiz before pausing
-*score //dictionary of the scores with round {round:score}. 
+*right_choice and right_choice_id (may have to be stored too)
+*score //dictionary of the scores with round {round:score}. --> will just go with total points for simplicity
 //we compute the final score from the scores of all the rounds
 
 
-user_details
+user_details --> just used Oauth
 *user_id //user's user id
 *username //user's username
 *password //authentication password

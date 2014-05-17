@@ -1,4 +1,5 @@
 from django.db import models
+#from django.contrib.auth.models import User
 
 # Create your models here.
 #Questions model
@@ -65,3 +66,20 @@ class QnsTags(models.Model):
 		verbose_name_plural="qns_tags"
 	def __unicode__(self):
 		return '%s' % self.tag
+#persist users' sessions
+class UserSession(models.Model):
+	"""persist user's session so that next time they login, they start from where they left off"""
+	user_id = models.IntegerField(null=True)
+	theme_id = models.IntegerField(null=True)
+	quiz_round = models.IntegerField(null=True)
+	no_rounds  = models.IntegerField(null=True)
+	round_pg = models.IntegerField(null=True)
+	round_pts = models.IntegerField(null=True)
+	quiz_pts = models.IntegerField(null=True)
+
+
+	class Meta:
+		verbose_name_plural="user_session"
+	def __unicode__(self):
+		return '%s' % self.theme_id
+

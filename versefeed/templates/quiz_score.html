@@ -6,9 +6,10 @@
 
   <div class="jumbotron">
     <h1>And your Score is...</h1>
-    <p> <span class="badge" style="font-size:large;">Score: {{ request.session.points }}</span> </p>
+    <p> <span class="badge" style="font-size:large;">Score: {{ request.session.round_pts }}</span> </p>
     {% ifequal has_next_round 'true' %}
-      <p><a href="/themed_quiz/?quiz_round={{quiz_round}}" class="btn btn-primary btn-lg" role="button">Go to Next Round</a></p>
+      <a href="/themed_quiz/?quiz_round={{quiz_round}}" class="btn btn-primary btn-lg" role="button">Go to Next Round</a>
+      <a href="/quiz/" class="btn btn-default" role="button">Try something else</a>
     {% else %}
       <p><a href="/quiz/" class="btn btn-primary btn-lg" role="button">Do more Quiz</a></p>
     {% endifequal %}

@@ -42,7 +42,10 @@
     <div id="quiz_nav">
       {% if qn_page.has_next %}
         <button class="btn btn-primary btn-large" onclick="submit_quiz_form('{{ qn_page.next_page_number }}');">Next Question</button>
-        <button class="btn btn-small" onclick="submit_quiz_form();">Pause</button>
+        {% if user.is_authenticated %}
+          <!-- we can only persist session of logged in users -->
+          <button class="btn btn-small" onclick="pause_quiz('{{ qn_page.number}}');">Pause</button>
+        {% endif %} 
       {% else %}
        <button type="submit" class="btn btn-primary btn-large" onclick="quiz_score();">See Score</button>
       {% endif %} 
@@ -94,6 +97,17 @@
              'user_choice':user_choice
           }, function(data) {
             $("#quiz").html(data);
+          }, "html");
+    }
+
+    //persist this user's session 
+    function pause_quiz(curr_pg){
+      //top.location.href = 
+        $.get("/pause/", {
+             'page':curr_pg
+          }, function(data) {
+            //$("#quiz").html(data);
+            top.location.href = "/quiz"; //redirected to home page
           }, "html");
     }
 

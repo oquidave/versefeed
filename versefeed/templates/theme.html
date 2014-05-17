@@ -9,6 +9,10 @@
         <p>{{no_qns}} Questions</p>
         <p>{{no_rounds}} Rounds</p>
         <p>Quiz by {{theme.author}}</p>
-        <p><a href="/themed_quiz?theme_id={{theme.id}}&quiz_round={{quiz_round}}&no_rounds={{no_rounds}}" class="btn btn-primary btn-lg" role="button">Start Quiz</a></p>
+        {% ifequal paused 'false' %}
+        	<p><a href="/themed_quiz?theme_id={{theme.id}}&quiz_round={{quiz_round}}&no_rounds={{no_rounds}}" class="btn btn-primary btn-lg" role="button">Start Quiz</a></p>
+        {% else %}
+        	<p><a href="/resume_quiz?theme_id={{theme.id}}" class="btn btn-primary btn-lg" role="button">Resume Quiz</a></p>
+        {% endifequal %}
     </div>
  </div>

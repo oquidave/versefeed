@@ -3,7 +3,7 @@
           <!--Qn header --> 
               <div class="page-header">
                  <h1>{{theme}} <small> Qn {{ qn_page.number }} of {{ qn_page.paginator.num_pages }}</small></h1>
-                  <span class="badge" style="font-size:large;">Points: {{ request.session.points }}</span>
+                  <span class="badge" style="font-size:large;">Round Points: {{ request.session.round_pts }}</span>
               </div>
 
            {% include "qn_header_responses.html" %}
