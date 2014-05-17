@@ -17,7 +17,9 @@ urlpatterns = patterns('',
     url(r'^themed_quiz/$', views.themed_quiz), #start theme's quiz
     url(r'^qn/$', views.qn), #ajax request of quiz qns
     url(r'^quiz_score/$', views.quiz_score), #ajax request to load the final quiz score for particular quiz round
-    url(r'^login/$', views.login),
+    url(r'^pause/$', views.pause),
+    url(r'^resume_quiz/$', views.resume_quiz),
+    url(r'^login/$', views.login), 
     url(r'^logout/$', views.logout),
     url(r'^about/$', views.about),
     url(r'^contact/$', views.contact),
