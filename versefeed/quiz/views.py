@@ -69,7 +69,8 @@ def pause(request):
 	'''persist user's session'''
 
 	user_id, theme_id, quiz_round, no_rounds, round_pg, round_pts, quiz_pts = request.user.id, int(request.session['theme_id']), \
-	int(request.session['quiz_round']), int(request.session['no_rounds']), int(request.GET.get("page")),request.session['round_pts'], request.session['quiz_pts']
+	int(request.session['quiz_round']), int(request.session['no_rounds']), int(request.GET.get("page")), \
+	request.session['round_pts'], request.session['quiz_pts']
 
 	user_session = models.UserSession()
 	user_session.user_id = user_id 
@@ -91,11 +92,12 @@ def resume_quiz(request):
 	round_pg = user_session.round_pg
 	quiz_round = user_session.quiz_round
 	no_rounds = user_session.no_rounds
+	quiz_pts = user_session.quiz_pts
 	request.session['theme_id'] = theme_id
 	request.session['quiz_round'] = quiz_round
 	request.session['no_rounds'] = no_rounds
 	request.session['round_pts'] = user_session.round_pts
-	request.session['quiz_pts'] = user_session.quiz_pts
+	request.session['quiz_pts'] = quiz_pts
 
 	quiz_details = quiz(request, theme_id, round_pg, quiz_round, resumed=True)
 	
@@ -150,6 +152,7 @@ def qn(request):
 	quiz_round = request.session['quiz_round']
 	quiz_details = quiz(request, theme_id, page, quiz_round)
 	html_pg = "qn.html"
+	#pdb.set_trace()
 	if request.session['see_score']:
 		#done with the qns for this round, show see_score
 		html_pg = "quiz_score.html"
@@ -161,14 +164,14 @@ def qn(request):
 
 def themed_quiz(request):
 	''' load quiz question for this theme and round number'''
-	quiz_round = request.GET.get("quiz_round")
+	quiz_round = int(request.GET.get("quiz_round"))
 	request.session["quiz_round"] = quiz_round
 	page = 1 #display one question for page
 	quiz_pts = 0
 	if quiz_round == "1":
 		#starting round 1
-		theme_id = request.GET.get("theme_id")
-		no_rounds = request.GET.get("no_rounds")
+		theme_id = int(request.GET.get("theme_id"))
+		no_rounds = int(request.GET.get("no_rounds"))
 		#store these in session variable for subsequent quiz rounds
 		request.session['theme_id'] = theme_id
 		request.session['no_rounds'] = no_rounds
@@ -199,12 +202,13 @@ def get_this_theme(theme_id):
 	no_this_theme_qns = len(this_theme_qns)
 	qns_per_round = 5 #have 5 questions per round. last Round may have less than 5 questions of course
 	no_rounds = int(math.ceil(no_this_theme_qns/float(qns_per_round))) #round up e.g 2.2 quiz rounds rounds off to 3 rounds 
-	return theme, no_this_theme_qns, no_rounds
+	return theme, no_this_theme_qns, no_rounds, qns_per_round
 
 def get_theme(request):
 	'''get theme details that the user clicked and display them in the theme_details html div'''
-	theme_id = request.GET.get("theme_id")
-	theme, no_this_theme_qns, no_rounds = get_this_theme(theme_id)
+	theme_id = int(request.GET.get("theme_id"))
+	theme, no_this_theme_qns, no_rounds, qns_per_round = get_this_theme(theme_id)
+	request.session['qns_per_round'] = qns_per_round
 	#check if user already starting doing a quiz with this theme
 	paused = "false"
 	if check_paused(theme_id):

@@ -4,15 +4,17 @@ from django.db import models
 # Create your models here.
 #Questions model
 class Qns(models.Model):
-	 qn = models.TextField()
-	 ref = models.TextField(null=True)
+	""" Model that holds all the quiz questions"""
+	qn = models.TextField()
+	ref = models.TextField(null=True)
 	 
-	 class Meta:
+	class Meta:
 	 	verbose_name_plural="qns"
-	 def __unicode__(self):
+	def __unicode__(self):
 	 	return self.qn
 #objectives
 class Choices(models.Model):
+	"""Model holds objectives of each question"""
 	qn = models.ForeignKey(Qns)
 	choice = models.CharField(max_length=255)
 	is_ans = models.BooleanField(default=False)
