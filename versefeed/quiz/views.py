@@ -15,12 +15,12 @@ def quiz(request,theme_id, page, quiz_round, resumed=False):
 	"""Mark the previous qn if not first qn as well as load current qn with its objectives"""
 	theme = models.Themes.objects.get(id=theme_id)
 	#work on the offsets
-	if int(quiz_round) == 1:
+	if quiz_round == 1:
 		start = 0
-		end = 5
 	else:
-		start = (int(quiz_round) -1) * 5
-		end = start * 2
+		start = (quiz_round -1) * 5
+	end = start + 5
+
 	qns_list = models.Qns.objects.filter(qnsthemes__theme=theme).order_by("id") [start:end]
 
 	paginator = Paginator(qns_list, 1)
@@ -63,6 +63,7 @@ def quiz(request,theme_id, page, quiz_round, resumed=False):
 	#store the right objective of this qn, so we mark the user when next page is loaded
 	request.session["right_choice_id"] = str(right_choice.id)
 	request.session["right_choice"] = right_choice.choice
+	#pdb.set_trace()
 	return {"theme":theme, "qn_page":qn_page, "qn":qn, "choices_list":choices_list, "ans":ans}
 
 def pause(request):
@@ -152,11 +153,12 @@ def qn(request):
 	quiz_round = request.session['quiz_round']
 	quiz_details = quiz(request, theme_id, page, quiz_round)
 	html_pg = "qn.html"
-	#pdb.set_trace()
+	"""pdb.set_trace()
 	if request.session['see_score']:
 		#done with the qns for this round, show see_score
 		html_pg = "quiz_score.html"
 		request.session['see_score'] = False
+	"""
 
 	return render_to_response(html_pg, 
 		quiz_details,
