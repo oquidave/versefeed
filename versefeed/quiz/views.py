@@ -40,7 +40,6 @@ def quiz(request,theme_id, page, quiz_round, resumed=False):
 	qn = models.Qns.objects.get(id = qn_id)
 	choices_list = models.Choices.objects.filter(qn_id=qn_id)
 	right_choice = [choice for choice in choices_list if choice.is_ans][0]
-	request.session['see_score'] = False
 
 	ans = "not_answered"
 	if not resumed:
@@ -153,13 +152,7 @@ def qn(request):
 	quiz_round = request.session['quiz_round']
 	quiz_details = quiz(request, theme_id, page, quiz_round)
 	html_pg = "qn.html"
-	"""pdb.set_trace()
-	if request.session['see_score']:
-		#done with the qns for this round, show see_score
-		html_pg = "quiz_score.html"
-		request.session['see_score'] = False
-	"""
-
+	
 	return render_to_response(html_pg, 
 		quiz_details,
 		context_instance=RequestContext(request))
@@ -170,7 +163,7 @@ def themed_quiz(request):
 	request.session["quiz_round"] = quiz_round
 	page = 1 #display one question for page
 	quiz_pts = 0
-	if quiz_round == "1":
+	if quiz_round == 1:
 		#starting round 1
 		theme_id = int(request.GET.get("theme_id"))
 		no_rounds = int(request.GET.get("no_rounds"))
